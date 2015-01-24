@@ -90,7 +90,7 @@ public class PressurePadScript : MonoBehaviour
 
             if (m_lAffectedObjects[i].GetComponent<ExitDoorScript>() != null)
             {
-                m_lAffectedObjects[i].GetComponent<ExitDoorScript>().SetActive(m_bValue);
+                m_lAffectedObjects[i].GetComponent<ExitDoorScript>().SetActive(m_bValue, this.gameObject);
                 continue;
             }
 
