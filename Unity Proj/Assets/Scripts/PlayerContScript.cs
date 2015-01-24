@@ -41,6 +41,8 @@ public class PlayerContScript : MonoBehaviour
     {
         m_bGrounded = Physics.OverlapSphere(m_tGroundCheck.position, m_fGCheckRad, m_lGroundLayer).Length > 0 ? true : false;
 
+        GetComponent<Animator>().SetBool("Grounded", !m_bGrounded);
+
         float moveVal = Input.GetAxis("Horizontal");
 
         if (m_bInverted)
