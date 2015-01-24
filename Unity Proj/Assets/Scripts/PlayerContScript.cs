@@ -6,8 +6,14 @@ public class PlayerContScript : MonoBehaviour
     //Am I the one true player?
     public bool m_bIsTruePlayer = false;
 
-    //The max speed the player can move
-    public float m_fMaxSpeed = 10f;
+    //The slowest speed the player can move
+    public float m_fSpeed = 5f;
+
+    //A selector for the speeds, multiplies with the speed
+    int m_iSpeedState = 2;
+
+    //Are the controls inverted?
+    bool m_bInverted = false;
     
     //The current facing of the player (false = left, true = right)
     bool m_bDirection = true;
@@ -37,6 +43,11 @@ public class PlayerContScript : MonoBehaviour
 
         float moveVal = Input.GetAxis("Horizontal");
 
+        if (m_bInverted)
+        {
+            moveVal *= -1;
+        }
+
         //If not on ground and not really moving, then you can't move any more
         if (!m_bGrounded && (rigidbody.velocity.x > -0.1f && rigidbody.velocity.x < 0.1f))
         {
@@ -45,7 +56,7 @@ public class PlayerContScript : MonoBehaviour
         }
 
         Vector3 newVel = rigidbody.velocity;
-        newVel.x = moveVal * (m_bGrounded? m_fMaxSpeed : m_fMaxSpeed / 1.5f);
+        newVel.x = moveVal * (m_bGrounded ? m_fSpeed * m_iSpeedState : (m_fSpeed * m_iSpeedState) / 1.5f);
         rigidbody.velocity = newVel;
         //Set the direction, used for things like rotation
         if (moveVal < 0)
@@ -80,5 +91,29 @@ public class PlayerContScript : MonoBehaviour
             return true;
         }
         return false;
+    }
+
+    //Increase the speed by increasing the multiplication amount
+    public void ReduceSpeed()
+    {
+        if (m_fSpeed > 1)
+        {
+            --m_fSpeed;
+        }
+    }
+    
+    //And do the opposite here
+    public void IncreaseSpeed()
+    {
+        if (m_fSpeed < 3)
+        {
+            ++m_fSpeed;
+        }
+    }
+
+    //Invert the controls from what they currently are
+    public void InvertControls()
+    {
+        m_bInverted = !m_bInverted;
     }
 }
