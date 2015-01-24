@@ -60,6 +60,7 @@
     <Compile Include="Assets\Scripts\ExitDoorScript.cs" />
     <Compile Include="Assets\Scripts\PlayerContScript.cs" />
     <Compile Include="Assets\Scripts\PressurePadScript.cs" />
+    <Compile Include="Assets\Scripts\RiftScript.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\SyntaxTree\UnityVS\2012\UnityVS.CSharp.targets" />
 </Project>
