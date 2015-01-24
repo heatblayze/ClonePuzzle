@@ -47,7 +47,7 @@ public class PlayerContScript : MonoBehaviour
         Vector3 newVel = rigidbody.velocity;
         newVel.x = moveVal * (m_bGrounded? m_fMaxSpeed : m_fMaxSpeed / 1.5f);
         rigidbody.velocity = newVel;
-        //Set the direction, used for things like air movement and rotation
+        //Set the direction, used for things like rotation
         if (moveVal < 0)
         {
             m_bDirection = false;
