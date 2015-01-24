@@ -17,7 +17,7 @@ public class CloneMachineInScript : MonoBehaviour
     bool m_bCloneInCreation = false;
 
     //The linked OUT machine
-    public GameObject m_gLinkedOutMachine = null;
+    public List<GameObject> m_gLinkedOutMachines;
 
     //The sparkle emitters
     public List<GameObject> m_gSparkles;
@@ -66,7 +66,10 @@ public class CloneMachineInScript : MonoBehaviour
         //IT'S ALIVE!
         SetSparklesEnabled(true);
         m_bCloneInCreation = true;
-        m_gLinkedOutMachine.GetComponent<CloneMachineOutScript>().StartCreation();
+        for (int i = 0; i < m_gLinkedOutMachines.Count; ++i)
+        {
+            m_gLinkedOutMachines[i].GetComponent<CloneMachineOutScript>().StartCreation();
+        }
     }
 
     public void SetAllowCreation(bool a_val)
@@ -80,7 +83,11 @@ public class CloneMachineInScript : MonoBehaviour
         //The cloning sequence was interrupted, stop it
         SetSparklesEnabled(false);
         m_bCloneInCreation = false;
-        m_gLinkedOutMachine.GetComponent<CloneMachineOutScript>().InterruptCreation();
+
+        for (int i = 0; i < m_gLinkedOutMachines.Count; ++i)
+        {
+            m_gLinkedOutMachines[i].GetComponent<CloneMachineOutScript>().InterruptCreation();
+        }
     }
 
     public void CreateSuccess()
