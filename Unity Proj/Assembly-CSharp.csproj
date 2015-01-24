@@ -59,6 +59,7 @@
      <Compile Include="Assets\Scripts\PressurePadScript.cs" />
      <Compile Include="Assets\Scripts\RiftScript.cs" />
      <Compile Include="Assets\Scripts\Riftageddon.cs" />
+     <Compile Include="Assets\Scripts\ShowLVL7Text.cs" />
      <None Include="Assets\Shaders\3DText.shader.txt" />
  <Reference Include="UnityEngine.UI">
  <HintPath>C:/Program Files (x86)/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/4.6.1/UnityEngine.UI.dll</HintPath>
