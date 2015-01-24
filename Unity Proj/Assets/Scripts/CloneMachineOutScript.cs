@@ -18,38 +18,93 @@ public class CloneMachineOutScript : MonoBehaviour
     //The position the clone will spawn at
     public Transform m_tCloneInitPos;
 
+    //The sparkle emitters
     public List<GameObject> m_gSparkles;
+    //The light emitters
+    public List<Light> m_lLights;
+
+    //The timer for the creation of a clone
+    const float m_fCreationMaxTime = 2f;
+    float m_fCreationTimer = 2f;
 
     // Use this for initialization
     void Start()
     {
-        for (int i = 0; i < m_gSparkles.Count; i++)
-        {
-            m_gSparkles[i].gameObject.SetActive(false);
-        }
+        SetSparklesEnabled(false);
 	}
 	
 	// Update is called once per frame
 	void Update ()
     {
+        SetLightsEnabled(m_gLinkedInMachine.GetComponent<CloneMachineInScript>().m_bCanUse && (!m_bCloneCreated) == true ? true : false);
+        //Run the creation animation and create the clone when it returns true
         if (CreationAnim())
         {
-
+            if (!m_bCloneCreated)
+            {
+                //Generate the clone
+                Instantiate(m_gClonePrefab, m_tCloneInitPos.position, new Quaternion());
+                //Turn off the sparkles, can't make another clone
+                m_bCloneCreated = true;
+                SetSparklesEnabled(false);
+                //Tell the first machine this info too
+                m_gLinkedInMachine.GetComponent<CloneMachineInScript>().CreateSuccess();
+            }
         }
 	}
+
+    void SetSparklesEnabled(bool a_val)
+    {
+        for (int i = 0; i < m_gSparkles.Count; i++)
+        {
+            m_gSparkles[i].GetComponent<ParticleEmitter>().emit = a_val;
+        }
+    }
+
+    void SetLightsEnabled(bool a_val)
+    {
+        for (int i = 0; i < m_lLights.Count; i++)
+        {
+            m_lLights[i].enabled = a_val;
+        }
+    }
 
     public void StartCreation()
     {
         //IT'S ALIVE!
-        Instantiate(m_gClonePrefab, m_tCloneInitPos.position, new Quaternion());
-        return;
         m_bCloneInCreation = true;
+        return;
     }
 
     bool CreationAnim()
     {
-        //Once the anim is over, return true
-        //otherwise return false to not create the clone yet
-        return true;
+        //Make sure the cloning has begun
+        if (m_bCloneInCreation)
+        {
+            //Countdown
+            m_fCreationTimer = m_fCreationTimer - Time.deltaTime;
+
+            //Creation in progress
+            if (m_fCreationTimer > 0)
+            {
+                SetSparklesEnabled(true);
+                return false;
+            }
+            else
+            {
+                //Time's up! Create the player
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    public void InterruptCreation()
+    {
+        //STOP THE PRESS! The player moved too much and the cloning sequence will now stop
+        m_fCreationTimer = m_fCreationMaxTime;
+        m_bCloneInCreation = false;
+        SetSparklesEnabled(false);
     }
 }

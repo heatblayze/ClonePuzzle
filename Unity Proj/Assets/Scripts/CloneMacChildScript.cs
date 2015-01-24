@@ -6,22 +6,11 @@ public class CloneMacChildScript : MonoBehaviour
     //The layer the player is on
     public LayerMask m_lPlayerLayer;
 
-	// Use this for initialization
-	void Start ()
-    {
-	    
-	}
-	
-	// Update is called once per frame
-	void Update ()
-    {
-	    
-	}
-
     void OnTriggerEnter(Collider a_collider)
     {
         if (1 << a_collider.gameObject.layer == m_lPlayerLayer.value)
         {
+            //A player or clone has entered the IN machine
             transform.parent.GetComponent<CloneMachineInScript>().SetAllowCreation(true);
         }
     }
@@ -30,7 +19,9 @@ public class CloneMacChildScript : MonoBehaviour
     {
         if (1 << a_collider.gameObject.layer == m_lPlayerLayer.value)
         {
+            //A player or clone has exited the IN machine
             transform.parent.GetComponent<CloneMachineInScript>().SetAllowCreation(false);
+            transform.parent.GetComponent<CloneMachineInScript>().InterruptCreation();
         }
     }
 }

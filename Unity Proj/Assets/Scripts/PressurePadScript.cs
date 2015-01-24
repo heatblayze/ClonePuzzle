@@ -29,12 +29,6 @@ public class PressurePadScript : MonoBehaviour
             gameObject.GetComponent<MeshRenderer>().material.SetTexture(0, m_mDisabledMat.GetTexture(0));
         }
 	}
-	
-	// Update is called once per frame
-	void Update ()
-    {
-
-	}
 
     void OnCollisionEnter(Collision a_collision)
     {
@@ -47,6 +41,7 @@ public class PressurePadScript : MonoBehaviour
                 //Change the value and send it
                 m_bValue = true;
                 SendSignal();
+                //Change the material to the "Enabled" one
                 gameObject.GetComponent<MeshRenderer>().material.SetTexture(0, m_mEnabledMat.GetTexture(0));
             }
         }
@@ -63,6 +58,7 @@ public class PressurePadScript : MonoBehaviour
                 //Change the value and send it
                 m_bValue = false;
                 SendSignal();
+                //Change the material to the "Disabled" one
                 gameObject.GetComponent<MeshRenderer>().material.SetTexture(0, m_mDisabledMat.GetTexture(0));
             }
         }
@@ -95,6 +91,12 @@ public class PressurePadScript : MonoBehaviour
             if (m_lAffectedObjects[i].GetComponent<ExitDoorScript>() != null)
             {
                 m_lAffectedObjects[i].GetComponent<ExitDoorScript>().SetActive(m_bValue);
+                continue;
+            }
+
+            if (m_lAffectedObjects[i].GetComponent<CloneMachineInScript>() != null)
+            {
+                m_lAffectedObjects[i].GetComponent<CloneMachineInScript>().SetActive(m_bValue);
                 continue;
             }
 
