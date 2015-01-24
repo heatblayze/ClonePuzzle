@@ -96,7 +96,7 @@ public class PressurePadScript : MonoBehaviour
 
             if (m_lAffectedObjects[i].GetComponent<CloneMachineInScript>() != null)
             {
-                m_lAffectedObjects[i].GetComponent<CloneMachineInScript>().SetActive(m_bValue, this.gameObject);
+                m_lAffectedObjects[i].GetComponent<CloneMachineInScript>().SetActive(m_bValue);
                 continue;
             }
 
