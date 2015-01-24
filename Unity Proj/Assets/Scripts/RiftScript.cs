@@ -16,7 +16,7 @@ public class RiftScript : MonoBehaviour
         GetComponent<Animator>().SetBool("Started", true);
         if (m_gObjectToDestroy != null)
         {
-            DestroyImmediate(m_gObjectToDestroy);
+            Destroy(m_gObjectToDestroy);
             GetComponent<Collider>().enabled = false;
         }
         if (m_bDestroy)
@@ -32,6 +32,18 @@ public class RiftScript : MonoBehaviour
             else
             {
                 DestroyImmediate(this.gameObject);
+            }
+        }
+    }
+
+    void FixedUpdate()
+    {
+        GameObject[] list = GameObject.FindObjectsOfType<GameObject>();
+        for (int i = 0; i < list.Length; i++)
+        {
+            if (list[i].name.Contains("Player"))
+            {
+
             }
         }
     }

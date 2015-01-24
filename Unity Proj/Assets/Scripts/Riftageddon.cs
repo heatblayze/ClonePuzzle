@@ -12,7 +12,7 @@ public class Riftageddon : MonoBehaviour
     SpriteRenderer[] m_renderers;
 
     //The amount of rifts to spawn
-    int m_iRiftAmount = 25;
+    int m_iRiftAmount = 20;
     //The list of rifts
     List<GameObject> m_lRifts;
 
