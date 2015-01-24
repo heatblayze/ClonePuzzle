@@ -76,7 +76,7 @@ public class CloneMachineInScript : MonoBehaviour
         if (!m_bCloneCreated)
         {
             //Check that the player is inside and the button is pressed
-            if (m_bCreationCanStart && Input.GetAxis("Vertical") > 0)
+            if (!m_bCloneInCreation && Input.GetAxis("Vertical") > 0)
             {
                 StartCreation();
             }
