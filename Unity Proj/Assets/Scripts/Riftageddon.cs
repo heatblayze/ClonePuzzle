@@ -12,7 +12,7 @@ public class Riftageddon : MonoBehaviour
     SpriteRenderer[] m_renderers;
 
     //The amount of rifts to spawn
-    int m_iRiftAmount = 14;
+    int m_iRiftAmount = 25;
     //The list of rifts
     List<GameObject> m_lRifts;
 
@@ -66,11 +66,34 @@ public class Riftageddon : MonoBehaviour
                     {
                         m_renderers[3 - m_lRifts.Count].enabled = true;
                     }
-                    m_fMaxTime -= 0.1f;
+                    if (m_fMaxTime > 0.1f)
+                    {
+                        m_fMaxTime -= 0.1f;
+                    }
                     m_fTimer = m_fMaxTime;
                     float x = UnityEngine.Random.Range(m_tLeft.position.x, m_tRight.position.x);
                     float y = UnityEngine.Random.Range(m_tBottom.position.y, m_tTop.position.y);
                     m_lRifts.Add((GameObject)Instantiate(m_gRiftPrefab, new Vector3(x, y, 0), new Quaternion()));
+                }
+            }
+            bool fin = true;
+            GameObject[] list = GameObject.FindObjectsOfType<GameObject>();
+            for (int i = 0; i < list.Length; ++i)
+            {
+                if ((list[i].name.Contains("Player(Clone)")))
+                {
+                    fin = false;
+                }
+            }
+            if (fin)
+            {
+                GameObject[] list2 = GameObject.FindObjectsOfType<GameObject>();
+                for (int i = 0; i < list.Length; ++i)
+                {
+                    if (list2[i].name.Contains("Clone") && list2[i].name.Contains("Rift"))
+                    {
+                        list2[i].GetComponent<RiftScript>().StartDestroy();
+                    }
                 }
             }
         }

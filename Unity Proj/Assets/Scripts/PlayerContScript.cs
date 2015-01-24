@@ -120,6 +120,12 @@ public class PlayerContScript : MonoBehaviour
             rigidbody.AddForce(new Vector3(0, m_fJumpForce, 0));
         }
 
+        //Restart!
+        if (Input.GetKeyDown(KeyCode.R) == true)
+        {
+            Application.LoadLevel(Application.loadedLevel);
+        }
+
         if (m_qRotateTarget.eulerAngles.y < transform.rotation.eulerAngles.y - 1 || m_qRotateTarget.eulerAngles.y > transform.rotation.eulerAngles.y + 1)
         {
             Quaternion quart = Quaternion.Euler(0, Mathf.Lerp(transform.rotation.eulerAngles.y, m_qRotateTarget.eulerAngles.y, m_fRotateSpeed), 0);
