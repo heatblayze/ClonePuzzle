@@ -3,6 +3,9 @@ using System.Collections;
 
 public class PlayerContScript : MonoBehaviour
 {
+    //Am I the one true player?
+    public bool m_bIsTruePlayer = false;
+
     //The max speed the player can move
     public float m_fMaxSpeed = 10f;
     
