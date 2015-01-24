@@ -25,7 +25,7 @@ public class GameEndScript : MonoBehaviour
             bool foundAny = false;
             for (int i = 0; i < list.Length; ++i)
             {
-                if (list[i].name.Contains("Player"))
+                if (list[i].name.Contains("Player("))
                 {
                     foundAny = true;
                     continue;
