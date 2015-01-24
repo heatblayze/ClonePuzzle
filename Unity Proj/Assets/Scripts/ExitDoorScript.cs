@@ -29,7 +29,7 @@ public class ExitDoorScript : MonoBehaviour
             if (Physics.OverlapSphere(m_tPlayerCheck.position, m_fCheckRad, m_lPlayerLayer).Length > 0)
             {
                 //End Level
-                Debug.Log("End level");
+                Application.LoadLevel (Application.loadedLevel +1) ;
             }
         }
 	}
