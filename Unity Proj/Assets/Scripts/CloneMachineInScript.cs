@@ -101,6 +101,7 @@ public class CloneMachineInScript : MonoBehaviour
 
     public void StartCreation()
     {
+        GetComponent<AudioSource>().Play();
         //IT'S ALIVE!
         SetSparklesEnabled(true);
         m_bCloneInCreation = true;

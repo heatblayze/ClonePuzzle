@@ -19,4 +19,18 @@ public class RiftScript : MonoBehaviour
             }
         }
     }
+
+    void OnTriggerStay(Collider a_collider)
+    {
+        //Make sure it's a player or clone
+        if (1 << a_collider.gameObject.layer == m_lPlayerLayer)
+        {
+            //Make sure it's a clone
+            if (!a_collider.GetComponent<PlayerContScript>().m_bIsTruePlayer)
+            {
+                Destroy(a_collider.gameObject);
+                Destroy(this.gameObject);
+            }
+        }
+    }
 }

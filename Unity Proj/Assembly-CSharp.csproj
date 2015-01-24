@@ -46,6 +46,7 @@
 	</Reference>
   </ItemGroup>
   <ItemGroup>
+     <Compile Include="Assets\Scripts\ActivateTrigger_Mute.cs" />
      <Compile Include="Assets\Scripts\ActivateTrigger_reverse.cs" />
      <Compile Include="Assets\Scripts\CloneMacChildScript.cs" />
      <Compile Include="Assets\Scripts\CloneMachineInScript.cs" />
@@ -57,6 +58,7 @@
      <Compile Include="Assets\Scripts\PowerupRotate.cs" />
      <Compile Include="Assets\Scripts\PressurePadScript.cs" />
      <Compile Include="Assets\Scripts\RiftScript.cs" />
+     <Compile Include="Assets\Scripts\Riftageddon.cs" />
  <Reference Include="UnityEngine.UI">
  <HintPath>D:/Program Files (x86)/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/4.6.1/UnityEngine.UI.dll</HintPath>
  </Reference>

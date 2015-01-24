@@ -38,6 +38,11 @@ public class PressurePadScript : MonoBehaviour
             //Is the collided object a player?
             if (1 << a_collision.gameObject.layer == m_lPlayerLayer.value)
             {
+                if (!m_bValue)
+                {
+                    GetComponent<AudioSource>().Play();
+                }
+
                 //Change the value and send it
                 m_bValue = true;
                 SendSignal();

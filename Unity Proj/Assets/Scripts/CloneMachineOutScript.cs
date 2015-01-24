@@ -70,6 +70,7 @@ public class CloneMachineOutScript : MonoBehaviour
 
     public void StartCreation()
     {
+        GetComponent<AudioSource>().Play();
         //IT'S ALIVE!
         m_bCloneInCreation = true;
         return;

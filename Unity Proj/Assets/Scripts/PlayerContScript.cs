@@ -17,6 +17,10 @@ public class PlayerContScript : MonoBehaviour
     
     //The current facing of the player (false = left, true = right)
     bool m_bDirection = true;
+
+
+    //Can this player be controlled
+    public bool m_bCanControl = true;
     
     //Whether the player is currently touching the ground
     bool m_bGrounded = false;
@@ -30,10 +34,25 @@ public class PlayerContScript : MonoBehaviour
     //The force applied when the player jumps
     float m_fJumpForce = 190f;
 
+
+    //For rotating the guy around on the Y axis primarily
+    Quaternion m_qRotateTarget;
+    float m_fStartingRot = 0f;
+    float m_fRotateSpeed = 0.2f;
+
+    //For ending the level
+    Vector3 m_v3EndTarget;
+    bool m_bEndLevel = false;
+
 	// Use this for initialization
 	void Start ()
     {
-	
+        m_fStartingRot = transform.rotation.eulerAngles.y;
+        m_qRotateTarget = Quaternion.Euler(0, m_fStartingRot, 0);
+        if (!m_bIsTruePlayer)
+        {
+            GetComponent<AudioListener>().enabled = false;
+        }
 	}
 
     //Fixed update works better for physics calculations as it occurs in a fixed time-step
@@ -43,7 +62,21 @@ public class PlayerContScript : MonoBehaviour
 
         GetComponent<Animator>().SetBool("Grounded", !m_bGrounded);
 
+        if (!m_bCanControl)
+        {
+            return;
+        }
+
         float moveVal = Input.GetAxis("Horizontal");
+
+        if (moveVal > 0 && m_bDirection == false)
+        {
+            m_qRotateTarget = Quaternion.Euler(0, m_fStartingRot, 0);
+        }
+        else if (moveVal < 0 && m_bDirection == true)
+        {
+            m_qRotateTarget = Quaternion.Euler(0, m_fStartingRot + 180, 0);
+        }
 
         if (m_bInverted)
         {
@@ -82,9 +115,20 @@ public class PlayerContScript : MonoBehaviour
 	void Update ()
     {
         //Camera.main.transform.position = new Vector3(transform.position.x, transform.position.y, Camera.main.transform.position.z);
-        if (m_bGrounded && Input.GetAxis("Jump") > 0)
+        if (m_bGrounded && Input.GetAxis("Jump") > 0 && m_bCanControl)
         {
             rigidbody.AddForce(new Vector3(0, m_fJumpForce, 0));
+        }
+
+        if (m_qRotateTarget.eulerAngles.y < transform.rotation.eulerAngles.y - 1 || m_qRotateTarget.eulerAngles.y > transform.rotation.eulerAngles.y + 1)
+        {
+            Quaternion quart = Quaternion.Euler(0, Mathf.Lerp(transform.rotation.eulerAngles.y, m_qRotateTarget.eulerAngles.y, m_fRotateSpeed), 0);
+            transform.rotation = quart;
+        }
+
+        if (m_bEndLevel)
+        {
+            transform.position = Vector3.Lerp(transform.position, m_v3EndTarget, m_fRotateSpeed / 20);
         }
 	}
 
@@ -124,5 +168,17 @@ public class PlayerContScript : MonoBehaviour
     public void InvertControls()
     {
         m_bInverted = !m_bInverted;
+    }
+
+    public void EndLevel()
+    {
+        if (m_bIsTruePlayer && !m_bEndLevel)
+        {
+            m_qRotateTarget = Quaternion.Euler(0, m_fStartingRot - 90, 0);
+            GetComponent<Animator>().SetFloat("Speed", 1f);
+            m_bEndLevel = true;
+            m_v3EndTarget = transform.position;
+            m_v3EndTarget.z += 5;
+        }
     }
 }
