@@ -95,6 +95,7 @@ public class Riftageddon : MonoBehaviour
                         list2[i].GetComponent<RiftScript>().StartDestroy();
                     }
                 }
+                Application.LoadLevel(Application.loadedLevel + 1);
             }
         }
 	}
