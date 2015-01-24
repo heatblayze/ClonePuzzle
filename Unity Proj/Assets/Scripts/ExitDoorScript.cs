@@ -20,6 +20,7 @@ public class ExitDoorScript : MonoBehaviour
 	// Use this for initialization
 	void Start ()
     {
+        m_bOpen = new List<bool>();
         if (m_gAlterers.Count > 0)
         {
             //Generate a list of bools for the door being closed/open based on the amount of alterers
