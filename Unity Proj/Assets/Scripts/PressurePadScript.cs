@@ -16,7 +16,7 @@ public class PressurePadScript : MonoBehaviour
     public List<GameObject> m_lAffectedObjects = null;
 
     //The layer used to detect players
-    public int m_lPlayerLayer;
+    public int m_iPlayerLayer;
 
 	// Use this for initialization
 	void Start ()
@@ -36,7 +36,7 @@ public class PressurePadScript : MonoBehaviour
         if (m_bCanUse)
         {
             //Is the collided object a player?
-            if (a_collision.gameObject.layer == m_lPlayerLayer)
+            if (a_collision.gameObject.layer == m_iPlayerLayer)
             {
                 //Change the value and send it
                 m_bValue = true;
@@ -51,7 +51,7 @@ public class PressurePadScript : MonoBehaviour
         if (!m_bConstantSignal && m_bCanUse)
         {
             //Is the collided object a player?
-            if (a_collision.gameObject.layer == m_lPlayerLayer)
+            if (a_collision.gameObject.layer == m_iPlayerLayer)
             {
                 //Change the value and send it
                 m_bValue = false;
