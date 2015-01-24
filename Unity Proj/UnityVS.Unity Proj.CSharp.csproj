@@ -54,6 +54,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\Scripts\ActivateTrigger_reverse.cs" />
     <Compile Include="Assets\Scripts\CloneMacChildScript.cs" />
     <Compile Include="Assets\Scripts\CloneMachineInScript.cs" />
     <Compile Include="Assets\Scripts\CloneMachineOutScript.cs" />
