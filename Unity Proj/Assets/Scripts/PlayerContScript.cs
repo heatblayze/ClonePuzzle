@@ -126,6 +126,12 @@ public class PlayerContScript : MonoBehaviour
             Application.LoadLevel(Application.loadedLevel);
         }
 
+        //Quit!
+        if (Input.GetKeyDown(KeyCode.Escape) == true)
+        {
+            Application.Quit();
+        }
+
         if (m_qRotateTarget.eulerAngles.y < transform.rotation.eulerAngles.y - 1 || m_qRotateTarget.eulerAngles.y > transform.rotation.eulerAngles.y + 1)
         {
             Quaternion quart = Quaternion.Euler(0, Mathf.Lerp(transform.rotation.eulerAngles.y, m_qRotateTarget.eulerAngles.y, m_fRotateSpeed), 0);

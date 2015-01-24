@@ -11,27 +11,9 @@ public class RiftScript : MonoBehaviour
     //Used for the cool destroy anim thing
     bool m_bDestroy = false;
 
-    //Used for the cool spawn-tearing effect
-    bool m_bStart = true;
-    Vector3 m_v3SpawnScale;
-
-    void Start()
-    {
-        m_v3SpawnScale = new Vector3(0.599161f, transform.localScale.y, transform.localScale.z);
-    }
-
     void Update()
     {
-        transform.LookAt(transform.position + Camera.main.transform.rotation * Vector3.back,Camera.main.transform.rotation * Vector3.up);
-        if (m_bStart)
-        {
-            transform.localScale = Vector3.Lerp(transform.localScale, m_v3SpawnScale, 0.05f);
-            if (transform.localScale.x > 0.595f)
-            {
-                m_bStart = false;
-            }
-        }
-
+        GetComponent<Animator>().SetBool("Started", true);
         if (m_gObjectToDestroy != null)
         {
             DestroyImmediate(m_gObjectToDestroy);
