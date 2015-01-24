@@ -20,22 +20,28 @@ public class ExitDoorScript : MonoBehaviour
 	// Use this for initialization
 	void Start ()
     {
-        //Generate a list of bools for the door being closed/open based on the amount of alterers
-        for (int i = 0; i < m_gAlterers.Count; ++i)
+        if (m_gAlterers.Count > 0)
         {
-            m_bOpen.Add(false);
+            //Generate a list of bools for the door being closed/open based on the amount of alterers
+            for (int i = 0; i < m_gAlterers.Count; ++i)
+            {
+                m_bOpen.Add(false);
+            }
         }
 	}
 	
 	// Update is called once per frame
 	void Update ()
     {
-        //Check all bools to see if the door can be accessed
-        for (int i = 0; i < m_bOpen.Count; ++i)
+        if (m_bOpen.Count > 0)
         {
-            if (m_bOpen[i] == false)
+            //Check all bools to see if the door can be accessed
+            for (int i = 0; i < m_bOpen.Count; ++i)
             {
-                return;
+                if (m_bOpen[i] == false)
+                {
+                    return;
+                }
             }
         }
 
@@ -54,13 +60,16 @@ public class ExitDoorScript : MonoBehaviour
     //Set whether the door is open
     public void SetActive(bool a_val, GameObject a_sender)
     {
-        for (int i = 0; i < m_gAlterers.Count; ++i)
-        {   
-            //Make sure the sender was a registered alterer
-            if (a_sender == m_gAlterers[i])
+        if (m_gAlterers.Count > 0)
+        {
+            for (int i = 0; i < m_gAlterers.Count; ++i)
             {
-                m_bOpen[i] = a_val;
-                return;
+                //Make sure the sender was a registered alterer
+                if (a_sender == m_gAlterers[i])
+                {
+                    m_bOpen[i] = a_val;
+                    return;
+                }
             }
         }
     }
