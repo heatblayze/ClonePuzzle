@@ -48,6 +48,13 @@ public class PlayerContScript : MonoBehaviour
             moveVal *= -1;
         }
 
+        GetComponent<Animator>().SetFloat("Speed", Mathf.Abs(moveVal));
+
+        if (Mathf.Abs(moveVal) < 0.5f)
+        {
+            GetComponent<Animator>().SetFloat("Speed", -1f);
+        }
+
         //If not on ground and not really moving, then you can't move any more
         if (!m_bGrounded && (rigidbody.velocity.x > -0.1f && rigidbody.velocity.x < 0.1f))
         {

@@ -36,7 +36,6 @@ public class CloneMachineOutScript : MonoBehaviour
 	// Update is called once per frame
 	void Update ()
     {
-        SetLightsEnabled(m_gLinkedInMachine.GetComponent<CloneMachineInScript>().m_bCanUse && (!m_bCloneCreated) == true ? true : false);
         //Run the creation animation and create the clone when it returns true
         if (CreationAnim())
         {
@@ -61,7 +60,7 @@ public class CloneMachineOutScript : MonoBehaviour
         }
     }
 
-    void SetLightsEnabled(bool a_val)
+    public void SetLightsEnabled(bool a_val)
     {
         for (int i = 0; i < m_lLights.Count; i++)
         {
