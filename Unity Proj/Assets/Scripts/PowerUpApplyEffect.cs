@@ -17,16 +17,19 @@ public class PowerUpApplyEffect : MonoBehaviour
             //What power is it? Apply the correct effect for its type
             switch (m_iPowerupType)
             {
+                    //Increase speed
                 case 0:
                     {
                         a_collider.GetComponent<PlayerContScript>().IncreaseSpeed();
                         break;
                     }
+                    //Reduce speed
                 case 1:
                     {
                         a_collider.GetComponent<PlayerContScript>().ReduceSpeed();
                         break;
                     }
+                    //Invert controls
                 case 2:
                     {
                         a_collider.GetComponent<PlayerContScript>().InvertControls();

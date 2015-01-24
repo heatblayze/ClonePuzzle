@@ -6,7 +6,10 @@ using System;
 public class CloneMachineInScript : MonoBehaviour
 {
     //Is the machine turned on?
-    public bool m_bCanUse = true;
+    List<bool> m_bOpen;
+
+    //List of allowed aleterers
+    public List<GameObject> m_gAlterers;
 
     //Can the creation start?
     bool m_bCreationCanStart = false;
@@ -27,15 +30,49 @@ public class CloneMachineInScript : MonoBehaviour
 	// Use this for initialization
 	void Start ()
     {
-        SetSparklesEnabled(false);
+        m_bOpen = new List<bool>();
+        if (m_gAlterers.Count > 0)
+        {
+            //Generate a list of bools for the door being closed/open based on the amount of alterers
+            for (int i = 0; i < m_gAlterers.Count; ++i)
+            {
+                m_bOpen.Add(false);
+            }
+        }
+        SetLightsEnabled(false);
+        for (int j = 0; j < m_gLinkedOutMachines.Count; ++j)
+        {
+            m_gLinkedOutMachines[j].GetComponent<CloneMachineOutScript>().SetLightsEnabled(false);
+        }
 	}
 
     // Update is called once per frame
     void Update()
     {
-        SetLightsEnabled(m_bCanUse && (!m_bCloneCreated) == true? true : false);
+        if (m_bOpen.Count > 0)
+        {
+            //Check all bools to see if the door can be accessed
+            for (int i = 0; i < m_bOpen.Count; ++i)
+            {
+                if (m_bOpen[i] == false)
+                {
+                    SetLightsEnabled(false);
+                    for (int j = 0; j < m_gLinkedOutMachines.Count; ++j)
+                    {
+                        m_gLinkedOutMachines[j].GetComponent<CloneMachineOutScript>().SetLightsEnabled(false);
+                    }
+                    return;
+                }
+            }
+        }
+
+        SetLightsEnabled(true);
+        for (int j = 0; j < m_gLinkedOutMachines.Count; ++j)
+        {
+            m_gLinkedOutMachines[j].GetComponent<CloneMachineOutScript>().SetLightsEnabled(true);
+        }
         //Make sure a clone has not been created and the machine is actually usable
-        if (!m_bCloneCreated && m_bCanUse)
+        if (!m_bCloneCreated)
         {
             //Check that the player is inside and the button is pressed
             if (m_bCreationCanStart && Input.GetAxis("Vertical") > 0)
@@ -97,8 +134,20 @@ public class CloneMachineInScript : MonoBehaviour
         SetSparklesEnabled(false);
     }
 
-    public void SetActive(bool a_val)
+    //Set whether the machine is active
+    public void SetActive(bool a_val, GameObject a_sender)
     {
-        m_bCanUse = a_val;
+        if (m_gAlterers.Count > 0)
+        {
+            for (int i = 0; i < m_gAlterers.Count; ++i)
+            {
+                //Make sure the sender was a registered alterer
+                if (a_sender == m_gAlterers[i])
+                {
+                    m_bOpen[i] = a_val;
+                    return;
+                }
+            }
+        }
     }
 }
