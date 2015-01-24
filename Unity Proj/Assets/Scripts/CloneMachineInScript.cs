@@ -40,6 +40,7 @@ public class CloneMachineInScript : MonoBehaviour
             }
         }
         SetLightsEnabled(false);
+        SetSparklesEnabled(false);
         for (int j = 0; j < m_gLinkedOutMachines.Count; ++j)
         {
             m_gLinkedOutMachines[j].GetComponent<CloneMachineOutScript>().SetLightsEnabled(false);
