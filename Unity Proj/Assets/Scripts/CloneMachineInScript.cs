@@ -43,7 +43,7 @@ public class CloneMachineInScript : MonoBehaviour
         SetSparklesEnabled(false);
         for (int j = 0; j < m_gLinkedOutMachines.Count; ++j)
         {
-            m_gLinkedOutMachines[j].GetComponent<CloneMachineOutScript>().SetLightsEnabled(false);
+            m_gLinkedOutMachines[j].gameObject.GetComponent<CloneMachineOutScript>().SetLightsEnabled(false);
         }
 	}
 
@@ -60,7 +60,7 @@ public class CloneMachineInScript : MonoBehaviour
                     SetLightsEnabled(false);
                     for (int j = 0; j < m_gLinkedOutMachines.Count; ++j)
                     {
-                        m_gLinkedOutMachines[j].GetComponent<CloneMachineOutScript>().SetLightsEnabled(false);
+                        m_gLinkedOutMachines[j].gameObject.GetComponent<CloneMachineOutScript>().SetLightsEnabled(false);
                     }
                     return;
                 }
@@ -70,13 +70,13 @@ public class CloneMachineInScript : MonoBehaviour
         SetLightsEnabled(true);
         for (int j = 0; j < m_gLinkedOutMachines.Count; ++j)
         {
-            m_gLinkedOutMachines[j].GetComponent<CloneMachineOutScript>().SetLightsEnabled(true);
+            m_gLinkedOutMachines[j].gameObject.GetComponent<CloneMachineOutScript>().SetLightsEnabled(true);
         }
         //Make sure a clone has not been created and the machine is actually usable
         if (!m_bCloneCreated)
         {
             //Check that the player is inside and the button is pressed
-            if (!m_bCloneInCreation && Input.GetAxis("Vertical") > 0)
+            if (!m_bCloneInCreation && Input.GetAxis("Vertical") > 0 && m_bCreationCanStart)
             {
                 StartCreation();
             }
@@ -87,7 +87,7 @@ public class CloneMachineInScript : MonoBehaviour
     {
         for (int i = 0; i < m_gSparkles.Count; i++)
         {
-            m_gSparkles[i].GetComponent<ParticleEmitter>().emit = a_val;
+            m_gSparkles[i].gameObject.GetComponent<ParticleEmitter>().emit = a_val;
         }
     }
 
@@ -106,7 +106,7 @@ public class CloneMachineInScript : MonoBehaviour
         m_bCloneInCreation = true;
         for (int i = 0; i < m_gLinkedOutMachines.Count; ++i)
         {
-            m_gLinkedOutMachines[i].GetComponent<CloneMachineOutScript>().StartCreation();
+            m_gLinkedOutMachines[i].gameObject.GetComponent<CloneMachineOutScript>().StartCreation();
         }
     }
 
@@ -124,7 +124,7 @@ public class CloneMachineInScript : MonoBehaviour
 
         for (int i = 0; i < m_gLinkedOutMachines.Count; ++i)
         {
-            m_gLinkedOutMachines[i].GetComponent<CloneMachineOutScript>().InterruptCreation();
+            m_gLinkedOutMachines[i].gameObject.GetComponent<CloneMachineOutScript>().InterruptCreation();
         }
     }
 

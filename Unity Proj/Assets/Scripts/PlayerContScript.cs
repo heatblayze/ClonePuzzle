@@ -28,7 +28,7 @@ public class PlayerContScript : MonoBehaviour
     public LayerMask m_lGroundLayer;
 
     //The force applied when the player jumps
-    public float m_fJumpForce = 130f;
+    float m_fJumpForce = 190f;
 
 	// Use this for initialization
 	void Start ()

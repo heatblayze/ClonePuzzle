@@ -42,12 +42,12 @@ public class CloneMachineOutScript : MonoBehaviour
             if (!m_bCloneCreated)
             {
                 //Generate the clone
-                Instantiate(m_gClonePrefab, m_tCloneInitPos.position, new Quaternion());
+                Instantiate(m_gClonePrefab, m_tCloneInitPos.position, Quaternion.Euler(new Vector3(0, 90, 0)));
                 //Turn off the sparkles, can't make another clone
                 m_bCloneCreated = true;
                 SetSparklesEnabled(false);
                 //Tell the first machine this info too
-                m_gLinkedInMachine.GetComponent<CloneMachineInScript>().CreateSuccess();
+                m_gLinkedInMachine.gameObject.GetComponent<CloneMachineInScript>().CreateSuccess();
             }
         }
 	}
@@ -56,7 +56,7 @@ public class CloneMachineOutScript : MonoBehaviour
     {
         for (int i = 0; i < m_gSparkles.Count; i++)
         {
-            m_gSparkles[i].GetComponent<ParticleEmitter>().emit = a_val;
+            m_gSparkles[i].gameObject.GetComponent<ParticleEmitter>().emit = a_val;
         }
     }
 
