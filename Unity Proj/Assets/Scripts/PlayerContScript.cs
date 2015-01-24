@@ -56,7 +56,7 @@ public class PlayerContScript : MonoBehaviour
         }
 
         Vector3 newVel = rigidbody.velocity;
-        newVel.x = moveVal * (m_bGrounded ? m_fSpeed * m_iSpeedState : (m_fSpeed * m_iSpeedState) / 1.5f);
+        newVel.x = (moveVal * (m_bGrounded ? m_fSpeed : m_fSpeed / 1.5f)) * m_iSpeedState;
         rigidbody.velocity = newVel;
         //Set the direction, used for things like rotation
         if (moveVal < 0)
@@ -96,18 +96,18 @@ public class PlayerContScript : MonoBehaviour
     //Increase the speed by increasing the multiplication amount
     public void ReduceSpeed()
     {
-        if (m_fSpeed > 1)
+        if (m_iSpeedState > 1)
         {
-            --m_fSpeed;
+            --m_iSpeedState;
         }
     }
     
     //And do the opposite here
     public void IncreaseSpeed()
     {
-        if (m_fSpeed < 3)
+        if (m_iSpeedState < 3)
         {
-            ++m_fSpeed;
+            ++m_iSpeedState;
         }
     }
 
