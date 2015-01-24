@@ -6,6 +6,17 @@ public class RiftScript : MonoBehaviour
     //The layer the player and clones are on
     public LayerMask m_lPlayerLayer;
 
+    GameObject m_gObjectToDestroy = null;
+
+    void Update()
+    {
+        if (m_gObjectToDestroy != null)
+        {
+            DestroyImmediate(m_gObjectToDestroy);
+            DestroyImmediate(this.gameObject);
+        }
+    }
+
     void OnTriggerEnter(Collider a_collider)
     {
         //Make sure it's a player or clone
@@ -14,8 +25,7 @@ public class RiftScript : MonoBehaviour
             //Make sure it's a clone
             if (!a_collider.GetComponent<PlayerContScript>().m_bIsTruePlayer)
             {
-                Destroy(a_collider.gameObject);
-                Destroy(this.gameObject);
+                m_gObjectToDestroy = a_collider.gameObject;
             }
         }
     }
@@ -28,8 +38,7 @@ public class RiftScript : MonoBehaviour
             //Make sure it's a clone
             if (!a_collider.GetComponent<PlayerContScript>().m_bIsTruePlayer)
             {
-                Destroy(a_collider.gameObject);
-                Destroy(this.gameObject);
+                m_gObjectToDestroy = a_collider.gameObject;
             }
         }
     }
