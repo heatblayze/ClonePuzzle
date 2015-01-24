@@ -16,18 +16,24 @@ public class PressurePadScript : MonoBehaviour
     public List<GameObject> m_lAffectedObjects = null;
 
     //The layer used to detect players
-    public int m_iPlayerLayer;
+    public LayerMask m_lPlayerLayer;
+
+    public Material m_mDisabledMat;
+    public Material m_mEnabledMat;
 
 	// Use this for initialization
 	void Start ()
     {
-
+        if (m_bValue == false)
+        {
+            gameObject.GetComponent<MeshRenderer>().material.SetTexture(0, m_mDisabledMat.GetTexture(0));
+        }
 	}
 	
 	// Update is called once per frame
 	void Update ()
     {
-	
+
 	}
 
     void OnCollisionEnter(Collision a_collision)
@@ -36,11 +42,12 @@ public class PressurePadScript : MonoBehaviour
         if (m_bCanUse)
         {
             //Is the collided object a player?
-            if (a_collision.gameObject.layer == m_iPlayerLayer)
+            if (1 << a_collision.gameObject.layer == m_lPlayerLayer.value)
             {
                 //Change the value and send it
                 m_bValue = true;
                 SendSignal();
+                gameObject.GetComponent<MeshRenderer>().material.SetTexture(0, m_mEnabledMat.GetTexture(0));
             }
         }
     }
@@ -51,11 +58,12 @@ public class PressurePadScript : MonoBehaviour
         if (!m_bConstantSignal && m_bCanUse)
         {
             //Is the collided object a player?
-            if (a_collision.gameObject.layer == m_iPlayerLayer)
+            if (1 << a_collision.gameObject.layer == m_lPlayerLayer.value)
             {
                 //Change the value and send it
                 m_bValue = false;
                 SendSignal();
+                gameObject.GetComponent<MeshRenderer>().material.SetTexture(0, m_mDisabledMat.GetTexture(0));
             }
         }
     }
