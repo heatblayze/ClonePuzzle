@@ -38,8 +38,12 @@ public class PowerUpApplyEffect : MonoBehaviour
                 default: 
                     break;
             }
-            //Destroy the powerup
-            Destroy(this.gameObject);
+
+            audio.Play();
+
+            renderer.enabled = false;
+            collider.enabled = false;
+            light.enabled = false;
         }
     }
 }

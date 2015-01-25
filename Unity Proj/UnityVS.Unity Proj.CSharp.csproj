@@ -59,8 +59,11 @@
     <Compile Include="Assets\Scripts\CloneMacChildScript.cs" />
     <Compile Include="Assets\Scripts\CloneMachineInScript.cs" />
     <Compile Include="Assets\Scripts\CloneMachineOutScript.cs" />
+    <Compile Include="Assets\Scripts\EpilogueContScript.cs" />
     <Compile Include="Assets\Scripts\ExitDoorScript.cs" />
     <Compile Include="Assets\Scripts\GameEndScript.cs" />
+    <Compile Include="Assets\Scripts\GoldRiftScript.cs" />
+    <Compile Include="Assets\Scripts\MusicSingleton.cs" />
     <Compile Include="Assets\Scripts\PlayerContScript.cs" />
     <Compile Include="Assets\Scripts\PowerUpApplyEffect.cs" />
     <Compile Include="Assets\Scripts\PowerupRotate.cs" />

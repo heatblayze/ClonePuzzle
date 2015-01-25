@@ -11,6 +11,10 @@ public class GoldRiftScript : MonoBehaviour
     //Used for the cool destroy anim thing
     bool m_bDestroy = false;
 
+    bool m_bDSoundPlayed = false;
+
+    float waitForSound = 1f;
+
     void Update()
     {
         GetComponent<Animator>().SetBool("Started", true);
@@ -23,15 +27,20 @@ public class GoldRiftScript : MonoBehaviour
         {
             if (transform.localScale.y > 0)
             {
-                transform.localScale = Vector3.Lerp(transform.localScale, new Vector3(0, -1, 0), 0.5f);
+                transform.localScale = Vector3.Lerp(transform.localScale, new Vector3(0, -1, 0), 0.1f);
             }
             else if (transform.localScale.x < 5)
             {
-                transform.localScale = Vector3.Lerp(transform.localScale, new Vector3(6, 0, 0), 0.5f);
+                transform.localScale = Vector3.Lerp(transform.localScale, new Vector3(6, 0, 0), 0.1f);
             }
             else
             {
-                Destroy(this.gameObject);
+                renderer.enabled = false;
+                waitForSound -= Time.deltaTime;
+                if (waitForSound < 0)
+                {
+                    Destroy(this.gameObject);
+                }
             }
         }
     }
@@ -59,6 +68,11 @@ public class GoldRiftScript : MonoBehaviour
                 m_gObjectToDestroy = a_collider.gameObject;
                 m_bDestroy = true;
                 GetComponent<Collider>().enabled = false;
+                if (!m_bDSoundPlayed)
+                {
+                    transform.FindChild("DestroySound").GetComponent<AudioSource>().Play();
+                    m_bDSoundPlayed = true;
+                }
             }
         }
     }
@@ -74,6 +88,11 @@ public class GoldRiftScript : MonoBehaviour
                 m_gObjectToDestroy = a_collider.gameObject;
                 m_bDestroy = true;
                 GetComponent<Collider>().enabled = false;
+                if (!m_bDSoundPlayed)
+                {
+                    transform.FindChild("DestroySound").GetComponent<AudioSource>().Play();
+                    m_bDSoundPlayed = true;
+                }
             }
         }
     }
