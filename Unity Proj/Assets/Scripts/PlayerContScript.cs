@@ -193,4 +193,30 @@ public class PlayerContScript : MonoBehaviour
             m_v3EndTarget.z += 5;
         }
     }
+
+    public bool WalkToPoint(Vector3 a_position)
+    {
+        float dist = Vector3.Distance(transform.position, a_position);
+        if (dist < 1.5f)
+        {
+            GetComponent<Animator>().SetFloat("Speed", -1);
+            return true;
+        }
+        if (a_position.x < transform.position.x)
+        {
+            m_qRotateTarget = Quaternion.Euler(0, m_fStartingRot + 180, 0);
+        }
+        else
+        {
+            m_qRotateTarget = Quaternion.Euler(0, m_fStartingRot, 0);
+        }
+        float y = transform.position.y;
+        Vector3 vec = Vector3.Lerp(transform.position, a_position, m_fRotateSpeed / 15);
+        vec.z = 0;
+        vec.y = y;
+        transform.position = vec;
+        
+        GetComponent<Animator>().SetFloat("Speed", 1);
+        return false;
+    }
 }
