@@ -61,6 +61,7 @@ public class ExitDoorScript : MonoBehaviour
             if (Physics.OverlapSphere(m_tPlayerCheck.position, m_fCheckRad, m_lPlayerLayer).Length > 0)
             {
                 m_bPlayEndScene = true;
+                audio.Play();
             }
         }
         if (m_bPlayEndScene)
