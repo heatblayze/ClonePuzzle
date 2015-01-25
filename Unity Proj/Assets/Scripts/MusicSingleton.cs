@@ -28,4 +28,12 @@ public class MusicSingleton : MonoBehaviour
         audio.Play();
         DontDestroyOnLoad(this.gameObject);
     }
+
+    void Update()
+    {
+        if (!audio.isPlaying)
+        {
+            audio.Play();
+        }
+    }
 }
